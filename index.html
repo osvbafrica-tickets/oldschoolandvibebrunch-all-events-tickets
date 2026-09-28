@@ -1,129 +1,309 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>>Old School and Vibe Event tickets</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>TIK8 | Event Tickets</title>
+  <meta name="description" content="Pick your event and get your tickets on TIK8." />
+  <link rel="icon" href="tik_logo.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet" />
   <style>
-    /* Reset and base layout */
+    :root {
+      --bg: #000;
+      --text: #fff;
+      --muted: rgba(255, 255, 255, 0.62);
+      --orange: #ff5308;
+      --mint: #44fba8;
+      --card: rgba(255, 255, 255, 0.06);
+      --line: rgba(255, 255, 255, 0.16);
+      --display: "Unbounded", "Arial Black", Arial, sans-serif;
+      --body: "Manrope", system-ui, Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { background: #000; }
+
     body {
       margin: 0;
-      padding: 0;
-      font-family: "Poppins", Arial, sans-serif;
+      min-height: 100vh;
+      min-height: 100dvh;
+      background: #000;
+      color: #fff;
+      font-family: var(--body);
+      display: flex;
+      justify-content: center;
+      padding: max(28px, env(safe-area-inset-top)) 18px max(28px, env(safe-area-inset-bottom));
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before,
+    body::after {
+      display: none;
+    }
+
+    main {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 520px;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: center;
-    
-      height: 100vh;
+    }
 
-      /* image */
-      background: 
-        linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
-         url("images/background.gif") 
-        no-repeat center center fixed;
-         
-      background-size: cover;
-      color: #f1f5f9;
-      text-align: center;
-    
-     /*for pc remove this on github *//*
-      background: 
-        linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
-         url("D:/Mr_one1/IT work/work/OSVB-Website/background.gif") 
-        no-repeat center center fixed;
-         
-      background-size: cover;
-      color: #f1f5f9;
-      text-align: center;
-    
-      */}
-    .card {
-      align-content: center;
-      background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(10px);
-      box-shadow: 0 4px 25px rgba(0, 0, 0, 0.2);
-      border-radius: 16px;
-      padding: 2rem;
-      text-align: center;
-      width: auto;
-      max-width: 60%;
+    /* Logo: the source image has lots of black padding, so crop to the wordmark */
+    .logo {
+      position: relative;
+      width: min(340px, 82%);
+      aspect-ratio: 1340 / 480;
+      margin: 0 auto 6px;
+      overflow: hidden;
+      animation: logo-in 0.9s ease-out both;
+    }
+    .logo img {
+      position: absolute;
+      width: 144.2%;
+      left: -22.4%;
+      top: -154.2%;
+      max-width: none;
+      display: block;
+    }
+    @keyframes logo-in {
+      from { opacity: 0; transform: scale(0.94); }
+      to   { opacity: 1; transform: scale(1); }
     }
 
     h1 {
-      font-size: 1.6rem;
-      font-weight: bold;
-      margin-bottom: 1.5rem;
-      color: #fff;
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: clamp(1.35rem, 5.4vw, 1.75rem);
+      line-height: 1.2;
+      text-align: center;
+      margin: 8px 0 8px;
+    }
+    .sub {
+      text-align: center;
+      color: var(--muted);
+      margin: 0 auto 28px;
+      max-width: 34ch;
+      line-height: 1.5;
     }
 
-    a {
-      
-      display: block;
-      width: 50%;
-      margin: 10px auto;
-      padding: 14px;
+    .tickets { display: grid; gap: 14px; }
+
+    /* Each link is a ticket: colour stub, perforation, action */
+    .ticket {
+      --c: var(--orange);
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: stretch;
       text-decoration: none;
-      font-size: 1.1rem;
-      color: white;
-      background-color: #2563eb;
-      border-radius: 8px;
-      transition: all 0.3s ease;
-      align-items: center;
+      color: var(--text);
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-left: 6px solid var(--c);
+      border-radius: 14px;
+      transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    }
+    .ticket:nth-child(even) { --c: var(--mint); }
+
+    .ticket .info { padding: 16px 18px; min-width: 0; }
+    .ticket .city {
+      font-family: var(--display);
+      font-weight: 500;
+      font-size: 1.05rem;
+      margin: 0 0 4px;
+    }
+    .ticket .name {
+      font-size: 0.86rem;
+      color: var(--muted);
+      overflow-wrap: anywhere;
     }
 
-    a:hover {
-      background-color: lch(47.04% 90.47 295.37);
-      transform: scale(1.02);
-      
+    .ticket .action {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 108px;
+      padding: 0 16px;
+      position: relative;
+      border-left: 2px dashed var(--line);
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--c);
+      text-align: center;
     }
+    /* perforation notches */
+    .ticket .action::before,
+    .ticket .action::after {
+      content: "";
+      position: absolute;
+      left: -9px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 1px solid var(--line);
+    }
+    .ticket .action::before { top: -9px; }
+    .ticket .action::after  { bottom: -9px; }
+
+    .ticket:hover,
+    .ticket:focus-visible {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--c);
+    }
+    .ticket:hover .action,
+    .ticket:focus-visible .action {
+      background: var(--c);
+      color: #000;
+      border-radius: 0 13px 13px 0;
+    }
+    .ticket:focus-visible { outline: 3px solid var(--c); outline-offset: 3px; }
+
+    .ticket.soon { opacity: 0.72; }
+    .ticket.soon .action { color: var(--muted); }
+    .ticket.soon:hover .action { background: transparent; color: var(--muted); }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: max(24px, env(safe-area-inset-bottom));
+      transform: translate(-50%, 24px);
+      background: var(--mint);
+      color: #000;
+      font-weight: 700;
+      padding: 12px 20px;
+      border-radius: 999px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      z-index: 5;
+      max-width: 90vw;
+      text-align: center;
+    }
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
 
     footer {
-      margin-top: 20px;
-      font-size: 0.8rem;
-      color: #e2e8f0;
+      margin-top: 32px;
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--muted);
     }
+    footer strong { color: var(--text); }
 
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 1.3rem;
-      }
-
-      a {
-        font-size: 1rem;
-        padding: 12px;
-      }
+    @media (max-width: 380px) {
+      .ticket .action { min-width: 92px; padding: 0 10px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1 >Welcome to OSVB Africa Tickets</h1>
+  <main>
+    <div class="logo">
+      <img src="tik_logo.jpg" alt="TIK8" />
+    </div>
 
-    <!-- links  -->
+    <h1>Pick your event</h1>
+    <p class="sub">Choose a city below to get your tickets.</p>
 
-    <a href="https://oldschoolandvibebrunchafrica.hustlesasa.shop/products/6957faecad2b1451671b2dfd">MOMBASA EVENT</a>
-    <a href="https://oldschoolandvibebrunchafrica.hustlesasa.shop/products/6957f938ad2b1451671b2de1">NAIROBI EVENT</a>
-    <a href="https://mookh.com/event/old-school-and-vibe-brunch-kampala">KAMPALA EVENT</a>
-    <a id="MERU" href="">MERU EVENT</a>
+    <nav class="tickets" id="tickets" aria-label="Events"></nav>
 
-    <footer>Powered by Old School and Vibe Brunch Africa</footer>
-  </div>
+    <footer>Tickets powered by <strong>TIK8</strong></footer>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script>
+    /* ------------------------------------------------------------
+       EDIT YOUR EVENTS HERE
+       status: "live"  -> opens the ticket link
+               "soon"  -> shows a "coming soon" message when tapped
+       ------------------------------------------------------------ */
+    const EVENTS = [
+      {
+        name: "Old School and Vibe Brunch",
+        city: "Mombasa",
+        url: "https://tik8.africa/events/osvb-mombasa",
+        status: "live"
+      },
+      {
+        name: "Old School and Vibe Brunch",
+        city: "Nairobi",
+        url: "https://tik8.africa/events/osvb-2nd-anniversary",
+        status: "live"
+      },
+      {
+         name: "Old School and Vibe Brunch",
+        city: "Kampala",
+        url: "https://tik8.africa/events/osvb-kampala",
+        status: "live"
+      },
+      {
+         name: "Old School and Vibe Brunch",
+        city: "Kigali",
+        url: "https://tik8.africa/events/osvb-kigali-edition",
+        status: "live",
+       
+        
+      }
+      
+    ];
 
-    const MeruLink = document.getElementById('MERU');
-    MeruLink.addEventListener('click', function(e) {
-      e.preventDefault();
-      alert("Event tickets will be available soon");
+    const list = document.getElementById("tickets");
+    const toast = document.getElementById("toast");
+    let toastTimer;
+
+    function showToast(text) {
+      toast.textContent = text;
+      toast.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("show"), 2600);
+    }
+
+    EVENTS.forEach((ev) => {
+      const a = document.createElement("a");
+      const live = ev.status === "live" && ev.url;
+      a.className = "ticket" + (live ? "" : " soon");
+      a.href = live ? ev.url : "#";
+      if (live) {
+        a.target = "_blank";
+        a.rel = "noopener noreferrer";
+      }
+
+      const info = document.createElement("div");
+      info.className = "info";
+    
+      const name = document.createElement("span");
+      name.className = "name";
+      name.textContent = ev.name;
+        const city = document.createElement("p");
+      city.className = "city";
+      city.textContent = ev.city;
+      info.append(name, city);
+
+      const action = document.createElement("div");
+      action.className = "action";
+      action.textContent = live ? "Get tickets" : "Coming soon";
+
+      a.append(info, action);
+
+      if (!live) {
+        a.addEventListener("click", (e) => {
+          e.preventDefault();
+          showToast(ev.message || "Tickets will be available soon");
+        });
+      }
+      list.appendChild(a);
     });
-
-  </script> 
+  </script>
 </body>
 </html>
-
-
-
-
-
